@@ -24,7 +24,7 @@ secrets = json.load(open(os.path.join(SECRETS_DIR, 'base.json')))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j^jy5e%esyobju4&74w57msr1nrsmt2hy=p$0yb4(_6puxi*dl'
+SECRET_KEY = secrets['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
