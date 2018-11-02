@@ -5,6 +5,7 @@ MAINTAINER  hanyonghee9264@gmail.com
 RUN         apt -y update
 RUN         apt -y dist-upgrade
 RUN         apt -y install python3-pip
+RUN         pip3 install uwsgi
 
 # docker build할때의 PATH에 해당하는 폴더의 전체 내용을
 # Image의 /srv/project/폴더 내부에 복사
