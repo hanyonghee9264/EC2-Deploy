@@ -8,7 +8,7 @@ RUN         apt -y dist-upgrade
 RUN         apt -y install python3-pip
 
 # Nginx, uWSGI 설치 (WebServer, WSGI)
-RUN         apt -y install nginx
+RUN         apt -y install nginx supervisor
 RUN         pip3 install uwsgi
 
 # requirements.txt파일만 복사 후, 패키지 설치
@@ -22,6 +22,7 @@ WORKDIR     /srv/project
 
 # settings모듈에 대한 환경변수 설정
 ENV         DJANGO_SETTINGS_MODULE  config.settings.production
+ENV         LANG                    C.UTF-8
 
 # 프로세스를 실행할 명령
 WORKDIR     /srv/project/app
@@ -37,3 +38,10 @@ RUN         cp -f   /srv/project/.config/app.nginx \
                     /etc/nginx/sites-available/
 RUN         ln -sf  /etc/nginx/sites-available/app.nginx \
                     /etc/nginx/sites-enabled/app.nginx
+
+# supervisor설정파일 복사
+RUN         cp -f   /srv/project/.config/supervisord.conf \
+                    /etc/supervisor/conf.d/
+
+# Command로 supervisor실행
+CMD         supervisord -n
