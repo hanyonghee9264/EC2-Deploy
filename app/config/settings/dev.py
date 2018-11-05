@@ -1,4 +1,5 @@
 from .base import *
+secrets = json.loads(open(os.path.join(SECRETS_DIR, 'dev.json')))
 
 DEBUG = True
 
