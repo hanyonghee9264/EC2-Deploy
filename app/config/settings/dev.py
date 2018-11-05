@@ -4,13 +4,6 @@ DEBUG = True
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'wps9th.c3odv9dyz53u.ap-northeast-2.rds.amazonaws.com',
-        'NAME': 'ec2_deploy',
-        'USER': 'hanyonghee9264',
-        'PASSWORD': 'han46633^^',
-        'PORT': 5432,
-    }
-}
+# .secrets/dev.json의 내용을 사용해서
+# 아래 DATABASES설정 채우기
+DATABASES = secrets['DATABASES']
