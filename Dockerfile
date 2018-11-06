@@ -8,12 +8,12 @@ WORKDIR     /srv/project
 
 # 프로세스를 실행할 명령
 WORKDIR     /srv/project/app
-CMD         python3 manage.py collectstatic --noinput
+RUN         python3 manage.py collectstatic --noinput
 
 # Nginx
 #   기존에 존재하던 Nginx설정파일들 삭제
 RUN         rm -rf  /etc/nginx/sites-available/* && \
-RUN         rm -rf  /etc/nginx/sites-enabled/* && \
+            rm -rf  /etc/nginx/sites-enabled/* && \
             cp -f   /srv/project/.config/app.nginx \
                     /etc/nginx/sites-available/ && \
             ln -sf  /etc/nginx/sites-available/app.nginx \
