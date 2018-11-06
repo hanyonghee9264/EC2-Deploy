@@ -1,5 +1,5 @@
 # docker build -t ec2-deploy -f Dockerfile .
-FROM        ubuntu:18.04
+FROM        python:3.6.7-slim
 MAINTAINER  hanyonghee9264@gmail.com
 
 # settings모듈에 대한 환경변수 설정
@@ -16,6 +16,8 @@ RUN         pip3 install uwsgi
 # requirements.txt파일의 내용이 바뀌지 않으면 pip3 install ...부분이 재실행되지 않음
 COPY        requirements-production.txt /tmp/requirements.txt
 RUN         pip3 install -r /tmp/requirements.txt
+
+ENV         DJANGO_SETTINGS_MODULE  config.settings.production
 
 # 전체 소스코드 복사
 COPY        ./  /srv/project
@@ -39,6 +41,9 @@ RUN         ln -sf  /etc/nginx/sites-available/app.nginx \
 # supervisor설정파일 복사
 RUN         cp -f   /srv/project/.config/supervisord.conf \
                     /etc/supervisor/conf.d/
+
+# 80번 포트 개방
+EXPOSE      80
 
 # Command로 supervisor실행
 CMD         supervisord -n
